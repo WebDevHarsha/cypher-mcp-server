@@ -1,6 +1,11 @@
 import { NextRequest } from "next/server";
 import jwt from "jsonwebtoken"; // Descope issues JWTs
 
+interface DescopeJWTPayload {
+  role: string;
+  [key: string]: unknown;
+}
+
 export function requireRole(req: NextRequest, allowedRoles: string[]) {
   const auth = req.headers.get("authorization");
   if (!auth?.startsWith("Bearer ")) {
@@ -9,7 +14,7 @@ export function requireRole(req: NextRequest, allowedRoles: string[]) {
 
   const token = auth.split(" ")[1];
   try {
-    const decoded: any = jwt.verify(token, process.env.DESCOPE_JWT_SECRET!);
+    const decoded = jwt.verify(token, process.env.DESCOPE_JWT_SECRET!) as DescopeJWTPayload;
     if (!allowedRoles.includes(decoded.role)) {
       return { error: "Forbidden", status: 403 };
     }
