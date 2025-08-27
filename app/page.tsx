@@ -90,6 +90,24 @@ export default function Home() {
                 <p className="text-sm text-gray-700 whitespace-pre-line">{creative.twitter || "—"}</p>
               </div>
 
+              {/* Publish button under Twitter caption */}
+              <button
+                onClick={async () => {
+                  const res = await fetch("/api/publish", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: creative.twitter }), // user approved caption
+                  });
+                  const data = await res.json();
+                  console.log("Publish result:", data);
+                  alert(data.success ? "Tweet posted!" : "Failed: " + data.error);
+                }}
+                className="mt-2 px-4 py-2 bg-green-600 text-white rounded-lg"
+              >
+                Publish to X
+              </button>
+
+
               {/* Instagram */}
               <div className="col-span-1 bg-white p-4 rounded-xl shadow">
                 <h3 className="font-semibold mb-2">Instagram</h3>
