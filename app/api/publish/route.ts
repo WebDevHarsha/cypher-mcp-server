@@ -1,4 +1,3 @@
-// app/api/publish/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -21,7 +20,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // X API endpoint
     const url = "https://api.x.com/2/tweets";
 
     const options: RequestInit = {
@@ -31,7 +29,7 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        text, // the user-approved tweet text
+        text, 
       }),
     };
 

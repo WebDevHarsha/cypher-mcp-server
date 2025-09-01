@@ -54,8 +54,6 @@ export default function Home() {
   return (
     <main className="min-h-screen flex items-start justify-center bg-gray-50 p-6">
       <div className="w-full max-w-4xl">
-        <h1 className="text-3xl font-bold mb-6 text-center">Infinty — Research → Creative</h1>
-
         <div className="bg-white p-6 rounded-2xl shadow">
           <div className="flex gap-3">
             <input
@@ -84,19 +82,17 @@ export default function Home() {
 
           {creative && (
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Twitter */}
               <div className="col-span-1 bg-white p-4 rounded-xl shadow">
                 <h3 className="font-semibold mb-2">Twitter</h3>
                 <p className="text-sm text-gray-700 whitespace-pre-line">{creative.twitter || "—"}</p>
               </div>
 
-              {/* Publish button under Twitter caption */}
               <button
                 onClick={async () => {
                   const res = await fetch("/api/publish", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ text: creative.twitter }), // user approved caption
+                    body: JSON.stringify({ text: creative.twitter }), 
                   });
                   const data = await res.json();
                   console.log("Publish result:", data);
@@ -107,8 +103,6 @@ export default function Home() {
                 Publish to X
               </button>
 
-
-              {/* Instagram */}
               <div className="col-span-1 bg-white p-4 rounded-xl shadow">
                 <h3 className="font-semibold mb-2">Instagram</h3>
                 <p className="text-sm text-gray-700 whitespace-pre-line">
@@ -116,19 +110,16 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* LinkedIn */}
               <div className="col-span-1 bg-white p-4 rounded-xl shadow">
                 <h3 className="font-semibold mb-2">LinkedIn</h3>
                 <p className="text-sm text-gray-700 whitespace-pre-line">{creative.linkedin || "—"}</p>
               </div>
 
-              {/* Images (full width) */}
               <div className="col-span-1 md:col-span-3 mt-4">
                 <h3 className="font-semibold mb-2">Generated Image(s)</h3>
                 {creative.images?.length ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {creative.images.map((img: any, idx: number) => {
-                      // image object: { filename, b64, mime }
                       const src = `data:${img.mime || "image/png"};base64,${img.b64}`;
                       return (
                         <div key={idx} className="bg-white p-3 rounded-xl shadow">
@@ -143,7 +134,6 @@ export default function Home() {
                 )}
               </div>
 
-              {/* Debug / Raw */}
               <div className="col-span-1 md:col-span-3 mt-4 bg-gray-50 p-4 rounded-lg">
                 <details>
                   <summary className="cursor-pointer font-medium">Raw response</summary>
